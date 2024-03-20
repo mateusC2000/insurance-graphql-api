@@ -19,6 +19,8 @@ services:
       - '3000'
     env_file: 
       - .env
+    volumes:
+      - .:/opt/app
 networks: 
   insurance-service: 
     external: true
