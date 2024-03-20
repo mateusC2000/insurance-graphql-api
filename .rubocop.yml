@@ -1,0 +1,23 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 3.3
+  Exclude:
+   - 'bin/**/*'
+   - 'config/**/*'
+   - 'db/**/*'
+   - 'node_modules/**/*'
+   - 'script/**/*'
+   - 'spec/rails_helper.rb'
+   - 'vendor/**/*'
+
+
+Metrics/BlockLength:
+  Enable: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enable: false
