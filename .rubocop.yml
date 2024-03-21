@@ -18,6 +18,3 @@ Metrics/BlockLength:
 
 Style/Documentation:
   Enabled: false
-
-Metrics/MethodLength:
-  Enable: false
