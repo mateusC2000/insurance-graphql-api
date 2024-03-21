@@ -7,6 +7,7 @@ ruby '3.3.0'
 gem 'rails', '~> 7.0.8', '>= 7.0.8.1'
 
 gem 'bootsnap', require: false
+gem 'faraday'
 gem 'graphiql-rails', group: :development
 gem 'graphql', '~> 2.0'
 gem 'puma', '~> 5.0'
