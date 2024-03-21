@@ -14,13 +14,15 @@ services:
     container_name: insurance-graphql
     build: .
     ports:
-      - 3000:3000
-    expose:
-      - '3000'
-    env_file: 
+      - 4000:4000
+    command:
+      - bash -c 'bin/setup && rails server -b 0.0.0.0 -p 4000'
+    env_file:
       - .env
     volumes:
       - .:/opt/app
+    networks:
+      - insurance-service
 networks: 
   insurance-service: 
     external: true
