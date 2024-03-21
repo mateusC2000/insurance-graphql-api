@@ -2,31 +2,37 @@
 
 module Types
   class QueryType < Types::BaseObject
-    field :node, Types::NodeType, null: true, description: 'Fetches an object given its ID.' do
-      argument :id, ID, required: true, description: 'ID of the object.'
+    field :policy, Types::PolicyType, null: true do
+      argument :id, String, required: true
     end
 
-    def node(id:)
-      context.schema.object_from_id(id, context)
+    def policy(id:)
+      response = Faraday.get("http://insurance-service:3000/v1/policies/#{id}")
+      data = JSON.parse(response.body)
+
+      Types::PolicyType.new(
+        number: data['number'],
+        emission_date: data['emission_date'],
+        coverage_end_date: data['coverage_end_date'],
+        insured: insured(data['insured']),
+        vehicle: vehicle(data['vehicle'])
+      )
     end
 
-    field :nodes, [Types::NodeType, { null: true }], null: true,
-                                                     description: 'Fetches a list of objects given a list of IDs.' do
-      argument :ids, [ID], required: true, description: 'IDs of the objects.'
+    def insured(insured)
+      Types::InsuredType.new(
+        name: insured['name'],
+        cpf: insured['cpf']
+      )
     end
 
-    def nodes(ids:)
-      ids.map { |id| context.schema.object_from_id(id, context) }
-    end
-
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
-
-    # TODO: remove me
-    field :test_field, String, null: false,
-                               description: 'An example field added by the generator'
-    def test_field
-      'Hello World!'
+    def vehicle(vehicle)
+      Types::VehicleType.new(
+        brand: vehicle['brand'],
+        model: vehicle['model'],
+        year: vehicle['year'],
+        plate: vehicle['plate']
+      )
     end
   end
 end
