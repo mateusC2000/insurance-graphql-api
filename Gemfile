@@ -11,7 +11,6 @@ gem 'faraday'
 gem 'graphiql-rails', group: :development
 gem 'graphql', '~> 2.0'
 gem 'puma', '~> 5.0'
-gem 'sneakers'
 gem 'sqlite3', '~> 1.4'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 

@@ -8,8 +8,7 @@ module Mutations
 
     def resolve(attributes:)
       policy_json = attributes.to_json
-      Sneakers.publish(policy_json, to_queue: 'policy.created')
-
+      #publicar mensagem
       'OK'
     end
   end
