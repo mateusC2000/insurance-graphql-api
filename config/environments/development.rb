@@ -33,4 +33,15 @@ Rails.application.configure do
   config.active_record.migration_error = :page_load
 
   config.active_record.verbose_query_logs = true
+
+  config.hosts = [
+    IPAddr.new('0.0.0.0/0'), # All IPv4 addresses.
+    IPAddr.new('::/0'),      # All IPv6 addresses.
+    'localhost',
+    'insurance-graph',
+    'insurance-graphql',
+    'subscription_service',
+    ENV['SERVER_HOST_NAME'],
+    'rabbitmq:5672',
+  ]
 end

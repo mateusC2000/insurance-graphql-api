@@ -8,8 +8,9 @@ module Mutations
 
     def resolve(attributes:)
       policy_json = attributes.to_json
-      #publicar mensagem
-      'OK'
+      
+      Publisher.publish('policy.created', policy_json)
+      { policy: 'ok' }
     end
   end
 end

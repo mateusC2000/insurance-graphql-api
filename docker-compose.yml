@@ -1,29 +1,35 @@
 version: '3.8'
 services:
+  insurance-graph:
+    container_name: insurance-graphql
+    #build: .
+    image: 'ruby:3.3.0'
+    working_dir: /app
+    ports:
+      - 4000:4000
+    command: bash -c 'bin/setup && rails server -b 0.0.0.0 -p 4000'
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    networks:
+      - insurance-service-app
+    stdin_open: true
+    tty: true
+
   rabbitmq:
+    container_name: rabbitmq
     image: 'rabbitmq:3-management'
     ports:
       - "5672:5672"
       - "15672:15672"
     environment:
-      - RABBITMQ_USER=guest
-      - RABBITMQ_PASSWORD=guest
-      - RABBITMQ_HOSTNAME=rabbitmq
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
     networks:
       - insurance-service-app
-  insurance-graph:
-    container_name: insurance-graphql
-    build: .
-    ports:
-      - 4000:4000
-    command:
-      - bash -c 'bin/setup && rails server -b 0.0.0.0 -p 4000'
-    env_file:
-      - .env
-    volumes:
-      - .:/opt/app
-    networks:
-      - insurance-service-app
+
 networks: 
+  default:
   insurance-service-app:
     external: true
